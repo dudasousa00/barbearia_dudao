@@ -34,7 +34,24 @@ and open the template in the editor.
 
                     <li>Selecione o seu serviço <br />
                         <select name="selectServico" class="input">
-                            <option></option>
+                        <?php
+                            //passo 1: incluir as definições da BDA
+                            include "conexao_bd.php";
+                            //passo 2: montar o comando sql para listar os serviços
+                            $sql = "SELECT * FROM servico ORDER BY descricao";
+                            //passo 3: executar o sql e guardar o resultado em uma variável
+                            $resultado = retornarDados($sql);
+                            while($linha = mysqli_fetch_assoc($resultado))
+                            {
+                        ?>
+                                <option>
+                                    <?php echo $linha["descricao"];?>
+                                    R$
+                                    <?php echo $linha["preco"]; ?>
+                                </option>
+                        <?php
+                            }
+                        ?>
                         </select>
                     </li>
 
